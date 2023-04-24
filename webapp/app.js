@@ -22,25 +22,16 @@ function setRequestType(){
 function calculateResult() {
     req = new XMLHttpRequest();
     var restype = '';
+    
     if(document.getElementById("rt").style.color == 'green'){
         var restype = '&restype=color'
     }
-    //     var restype = '&restype=color'
-    // }
-    //const url_not_encoded = "https://localhost:5000/calculate?expression=" + document.getElementById("display").value.replace('+', 'a').replace('^', 'b');
-    //const url_not_encoded = "http://localhost:5000/calculate?expression=" + document.getElementById("display").value
-    //console.log('url_not_encoded', url_not_encoded);
-    //const url = encodeURI(url_not_encoded);
-    //const url = 'http://localhost:5000/calculate?expression=' + document.getElementById("display").value.replace('+', 'a').replace('^', 'b');
-    //const url = encodeURI(`http://localhost:5000/calculate?expression=${document.getElementById("display").value.replace('+', 'a').replace('^', 'b')}${restype}`);
+    
     const url = "http://localhost:5000/calculate?expression=" + document.getElementById('display').value.replace('+', 'a').replace('^', 'b') + restype;
-    //const url = encodeURIComponent("http://localhost:5000/calculate?expression=" + document.getElementById("display").value);
-    console.log('endoced url', url);
 
     var xhttp = new XMLHttpRequest();
 
     xhttp.open("GET", url, true);
-
     console.log('url', url);
     
     fetch(url)
