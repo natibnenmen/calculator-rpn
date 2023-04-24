@@ -1,4 +1,4 @@
-from operations import register
+from operations_reg import register
 
 @register('-', 0)
 def subtract(num1, num2):

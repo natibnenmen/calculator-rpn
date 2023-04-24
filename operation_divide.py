@@ -1,5 +1,5 @@
 
-from operations import register
+from operations_reg import register
 
 @register('/', 0)
 def divide(num1, num2):

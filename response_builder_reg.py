@@ -3,10 +3,21 @@ import importlib
 import os
 import sys
 import traceback
+import utils
 
+'''
+This module is responsible for building the response to the client. The input is the response type which is received from the client and the result.
+It is build in a way that it is easy to add new response types. The response types are dynamically loaded using the register function as a decorator registry.
+The load_modules function is used to load all the modules that start with 'response_type_', in which the specific response types are implemented.
+This way, when new response types are added, they are automatically loaded and registered.
+In both cases when no response type is specified, or the response type from the client is not found in the registry,  the default response type is used.
+'''
 
-#res_type = namedtuple('res_type', 'function')
 res_type_map = {}
+
+# This is the interface function to the client(the server.py module in this case)
+def build_response(response_type, result):
+    return res_type_map.get(response_type, res_type_map.get('default'))(result)
 
 
 def register(res_type):
@@ -20,20 +31,5 @@ def register(res_type):
     return register_function
 
     
-def load_modules():
-
-    try:
-        for file in os.listdir(os.path.dirname(__file__)):
-            if file.endswith('.py') and not file.startswith('_'):
-                if file.startswith('response_type'):
-                    module_name = file[:file.find('.py')]
-                    print(f'module_name: {module_name}')
-                    if module_name not in sys.modules:
-                        globals()[module_name] = importlib.import_module(module_name)
-                        print(f'Imported {module_name}')
-    except Exception as e:
-        print(f'traceback.format_exc(): \n {traceback.format_exc()}')
-        print(f'Exception: {e}')
-
-load_modules()
+utils.load_modules('response_type_')
 
