@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template, url_for
 from operations_reg import operators as operations
 from calculator import Calculator
 from flask_cors import CORS
@@ -33,6 +33,11 @@ def calculate():
 @app.route('/operations', methods=['GET'])
 def get_operations():
     return jsonify({'result': [key for key in operations.keys()]})    
+
+
+@app.route("/")
+def index():
+    return render_template("index.html")
 
 
 if __name__ == '__main__':
