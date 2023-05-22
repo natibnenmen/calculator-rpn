@@ -1,7 +1,7 @@
 
 from operations_reg import register
 
-@register('/', 0)
+@register('/', 1)
 def divide(num1, num2):
     if num2 == 0:
         raise ZeroDivisionError("Division by zero is not allowed")
